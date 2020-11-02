@@ -32,5 +32,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('unicode-eaw')
   gem.add_development_dependency('bibtex-ruby')
   gem.add_development_dependency('citeproc-ruby')
-  gem.add_development_dependency('csl')
+  gem.add_development_dependency('csl-styles')
 end
