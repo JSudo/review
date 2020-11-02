@@ -23,6 +23,9 @@ Gem::Specification.new do |gem|
   gem.add_dependency('image_size')
   gem.add_dependency('rouge')
   gem.add_dependency('rubyzip')
+  gem.add_development_dependency('bibtex-ruby')
+  gem.add_development_dependency('citeproc-ruby')
+  gem.add_development_dependency('csl-styles')
   gem.add_development_dependency('pygments.rb')
   gem.add_development_dependency('rake')
   gem.add_development_dependency('rubocop', '~> 0.92.0')
@@ -30,7 +33,4 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('simplecov')
   gem.add_development_dependency('test-unit')
   gem.add_development_dependency('unicode-eaw')
-  gem.add_development_dependency('bibtex-ruby')
-  gem.add_development_dependency('citeproc-ruby')
-  gem.add_development_dependency('csl-styles')
 end

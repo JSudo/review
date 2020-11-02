@@ -53,8 +53,9 @@ EOS
   end
 
   private
+
   def bibfile
-    bibfile = <<-EOS
+    <<-EOS
 @book{pickaxe,
   address = {Raleigh, North Carolina},
   author = {Thomas, Dave and Fowler, Chad and Hunt, Andy},
@@ -73,4 +74,3 @@ EOS
 EOS
   end
 end
-

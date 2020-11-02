@@ -6,21 +6,20 @@ module ReVIEW
   module Book
     class Bibliography
       def initialize(bibfile, config = nil)
-        @bibtex ||= BibTeX.parse(bibfile, filter: :latex)
+        @bibtex = BibTeX.parse(bibfile, filter: :latex)
         @config = config
-        self.format('text')
-        self
+        format('text')
       end
 
       def format(format)
         style = @config['bib-csl-style'] || 'acm-siggraph'
-        @citeproc = CiteProc::Processor.new style: style, format: format
-        @citeproc.import @bibtex.to_citeproc
+        @citeproc = CiteProc::Processor.new(style: style, format: format)
+        @citeproc.import(@bibtex.to_citeproc)
         self
       end
 
       def ref(key)
-        @citeproc.render :citation, id: key
+        @citeproc.render(:citation, id: key)
       end
 
       def list
