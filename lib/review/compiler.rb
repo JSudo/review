@@ -193,6 +193,7 @@ module ReVIEW
     defsingle :firstlinenum, 1
     defsingle :beginchild, 0
     defsingle :endchild, 0
+    defsingle :bibliography, 0
 
     definline :chapref
     definline :chap
@@ -252,6 +253,7 @@ module ReVIEW
     definline :pageref
     definline :w
     definline :wb
+    definline :ref
 
     private
 

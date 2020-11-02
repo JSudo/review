@@ -1039,6 +1039,14 @@ EOS
       error "unknown headline: #{id}"
     end
 
+    def inline_bibref(id)
+      @chapter.bibliography.format('html').ref(id)
+    end
+
+    def bibliography
+      puts @chapter.bibliography.format('html').list
+    end
+
     def column_label(id, chapter = @chapter)
       num = chapter.column(id).number
       "column-#{num}"

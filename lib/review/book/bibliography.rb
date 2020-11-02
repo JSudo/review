@@ -1,21 +1,25 @@
+require 'bibtex'
+require 'citeproc'
+require 'csl/styles'
+
 module ReVIEW
   module Book
     class Bibliography
-      def initialize(bib)
-        require 'bibtex'
-        require 'citeproc'
-        require 'csl/styles'
-        @bibtex ||= BibTeX.parse(bib, filter: :latex)
-        format
+      def initialize(bibfile, config = nil)
+        @bibtex ||= BibTeX.parse(bibfile, filter: :latex)
+        @config = config
+        self.format('text')
+        self
       end
 
-      def format(format = 'text')
-        style = 'acm-siggraph' # TODO: set via config
+      def format(format)
+        style = @config['bib-csl-style'] || 'acm-siggraph'
         @citeproc = CiteProc::Processor.new style: style, format: format
         @citeproc.import @bibtex.to_citeproc
+        self
       end
 
-      def cite(key)
+      def ref(key)
         @citeproc.render :citation, id: key
       end
 
