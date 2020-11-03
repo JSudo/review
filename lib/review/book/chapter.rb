@@ -53,12 +53,12 @@ module ReVIEW
           @number = nil if %w[nonum nodisp notoc].include?(find_first_header_option)
 
           # bibliography
-          chapter_bibfile = File.join(File.dirname(@path), File.basename(@path, '.re') + '.bib')
-          if File.exist?(chapter_bibfile)
-            @bibliography = Book::Bibliography.new(chapter_bibfile, @book.config)
-          else
-            if @book
-              book_bibfile = File.join(@book.basedir, 'book.bib')
+          if @book && @book.config
+            chapter_bibfile = File.join(File.dirname(@path), File.basename(@path, '.re') + '.bib')
+            if File.exist?(chapter_bibfile)
+              @bibliography = Book::Bibliography.new(chapter_bibfile, @book.config)
+            else
+              book_bibfile = File.join(@book.basedir, @book.config['bookname'] + '.bib')
               if File.exist?(book_bibfile)
                 @bibliography = Book::Bibliography.new(book_bibfile, @book.config)
               end
