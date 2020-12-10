@@ -27,12 +27,27 @@ module ReVIEW
       end
 
       def ref(key)
-        @citeproc.render(:citation, id: key)
+        cited = @citeproc.render(:citation, id: key)
+
+        # FIXME: need to apply CSL style
+        if cited == ''
+          idx = 1
+          @citeproc.bibliography.ids.each do |i|
+            if i == key
+              cited = "[#{idx}]"
+              break
+            end
+            idx += 1
+          end
+        end
+
+        cited
       end
 
       def list
         @citeproc.bibliography.join
       end
+
     end
   end
 end
