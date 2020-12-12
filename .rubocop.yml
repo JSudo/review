@@ -1,6 +1,5 @@
 AllCops:
   Exclude:
-    - lib/lineinput.rb
     - lib/uuid.rb
     - test/syntax-book/*
     - tmp/*
@@ -133,6 +132,9 @@ Style/ClassMethods:
   Enabled: true
 
 Style/CommentedKeyword:
+  Enabled: false
+
+Style/DocumentDynamicEvalDefinition:
   Enabled: false
 
 Style/FloatDivision:
@@ -592,6 +594,8 @@ Naming/VariableName:
 Naming/VariableNumber:
   EnforcedStyle: normalcase
   Enabled: true
+  Exclude:
+    - test/*
 
 #### Security
 

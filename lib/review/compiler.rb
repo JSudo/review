@@ -14,6 +14,8 @@ require 'strscan'
 
 module ReVIEW
   class Compiler
+    MAX_HEADLINE_LEVEL = 6
+
     def initialize(builder)
       @builder = builder
 
@@ -333,6 +335,8 @@ module ReVIEW
         end
       end
       close_all_tagged_section
+    rescue SyntaxError => e
+      error e
     end
 
     def compile_minicolumn_begin(name, caption = nil)
@@ -366,24 +370,27 @@ module ReVIEW
       @headline_indexs ||= [@chapter.number.to_i - 1]
       m = /\A(=+)(?:\[(.+?)\])?(?:\{(.+?)\})?(.*)/.match(line)
       level = m[1].size
+      if level > MAX_HEADLINE_LEVEL
+        raise CompileError, "Invalid header: max headline level is #{MAX_HEADLINE_LEVEL}"
+      end
       tag = m[2]
       label = m[3]
       caption = m[4].strip
       index = level - 1
       if tag
-        if tag !~ %r{\A/}
-          if caption.empty?
-            warn 'headline is empty.'
-          end
-          close_current_tagged_section(level)
-          open_tagged_section(tag, level, label, caption)
-        else
+        if tag.start_with?('/')
           open_tag = tag[1..-1]
           prev_tag_info = @tagged_section.pop
           if prev_tag_info.nil? || prev_tag_info.first != open_tag
             error "#{open_tag} is not opened."
           end
           close_tagged_section(*prev_tag_info)
+        else
+          if caption.empty?
+            warn 'headline is empty.'
+          end
+          close_current_tagged_section(level)
+          open_tagged_section(tag, level, label, caption)
         end
       else
         if caption.empty?
