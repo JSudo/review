@@ -47,7 +47,6 @@ module ReVIEW
       def list
         @citeproc.bibliography.join
       end
-
     end
   end
 end
